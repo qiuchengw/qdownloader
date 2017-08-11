@@ -1,17 +1,19 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_fpicdownloader.h"
 #include "downloader.h"
 #include "kutil/singleton.h"
+
+namespace Ui {
+    class FPicDownloader;
+}
 
 class KPictureDownloaderMan;
 class FPicDownloader : public QWidget
 {
     Q_OBJECT
 
-        friend class KPictureDownloaderMan;
-    friend class Ui_FExportArticle;
+    friend class KPictureDownloaderMan;
 
 private:
     FPicDownloader(QWidget* parent);
@@ -39,7 +41,7 @@ signals:
     void allDone( );
 
 private:
-    Ui::FPicDownloader ui;
+    Ui::FPicDownloader* ui = nullptr;
     Downloader downloader_;
 };
 

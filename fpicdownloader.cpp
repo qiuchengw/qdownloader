@@ -1,4 +1,6 @@
 #include "fpicdownloader.h"
+#include "ui_fpicdownloader.h"
+
 #include <QCloseEvent>
 
 #include "kutil/kcommon.h"
@@ -8,7 +10,7 @@
 FPicDownloader::FPicDownloader(QWidget* parent)
     :QWidget(parent)
 {
-    ui.setupUi(this);    
+    ui->setupUi(this);    
 
     downloader_.setParalledDownload(5);
     connect(&downloader_, &Downloader::finished, [&](int n){
@@ -16,7 +18,7 @@ FPicDownloader::FPicDownloader(QWidget* parent)
             ui.btn_go_->stopCountdown();
             emit allDone();
         }
-        ui.progress_->setValue(n);
+        ui->progress_->setValue(n);
     });
     connect(&downloader_, &Downloader::downloadEvent, this, &FPicDownloader::onDownloadPicture);
     connect(this, &FPicDownloader::closing,
