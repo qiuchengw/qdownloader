@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QNetworkReply>
 
 class Downloader : public QObject
 {

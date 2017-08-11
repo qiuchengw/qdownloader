@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_fpicdownloader.h"
 #include "downloader.h"
+#include "kutil/singleton.h"
 
 class KPictureDownloaderMan;
 class FPicDownloader : public QWidget

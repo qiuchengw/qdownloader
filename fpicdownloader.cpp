@@ -1,5 +1,9 @@
-#include "stdafx.h"
 #include "fpicdownloader.h"
+#include <QCloseEvent>
+
+#include "kutil/kcommon.h"
+#include "kutil/misc.h"
+#include "kutil/widget_helper.h"
 
 FPicDownloader::FPicDownloader(QWidget* parent)
     :QWidget(parent)
@@ -31,7 +35,7 @@ int FPicDownloader::urlRow(const QString& url) const
 void FPicDownloader::closeEvent(QCloseEvent *event)
 {
     if (downloader_.isAllDone()){
-        if (!KDLG::confirm(QSL("图片未完全下载，确定退出？"))){
+        if (!KDLG::confirm(QStringLiteral("图片未完全下载，确定退出？"))){
             event->ignore();
             return;
         }
@@ -57,7 +61,7 @@ void FPicDownloader::setParams( const QString& default_save_path,
     ui.progress_->setRange(0, items.count());
     ui.progress_->setValue(0);
 
-    KTableHelper::InitTableWidget(ui.tbl_pics_, {
+    kutil::widget::KTableHelper::InitTableWidget(ui.tbl_pics_, {
         { QStringLiteral("图片地址"), "url", 100, 0, QHeaderView::Stretch },
         { QStringLiteral("状态"), "status", 80, 0, QHeaderView::Fixed }
     }, "url", QSize(100, 100));
@@ -67,7 +71,7 @@ void FPicDownloader::setParams( const QString& default_save_path,
     for (auto &s : items){
         t->insertRow(i);
         t->setItem(i, 0, new QTableWidgetItem(s));
-        t->setItem(i, 1, new QTableWidgetItem(QSL("等待……")));
+        t->setItem(i, 1, new QTableWidgetItem(QStringLiteral("等待……")));
         i++;
     }
 }

@@ -1,5 +1,9 @@
-#include "stdafx.h"
 #include "downloader.h"
+#include <QFileInfo>
+#include <QDir>
+
+#include "knet/net.h"
+#include "kutil/misc.h"
 
 Downloader::Downloader(QObject *parent)
     : QObject(parent)
@@ -51,18 +55,18 @@ void Downloader::onDownload(int evt, QUrl url, int progress, QNetworkReply::Netw
     switch (evt)
     {
     case net::HttpDownload_Event_Finished:
-        err = QSL("已完成");
+        err = QStringLiteral("已完成");
         done_++;
         break;
 
     case net::HttpDownload_Event_Error:
-        err = QSL("错误：%1").arg(err);
+        err = QStringLiteral("错误：%1").arg(err);
         done_++;
         break;
 
     case net::HttpDownload_Event_Progress:
         download_next = false;
-        err = QSL("%1%").arg(progress);
+        err = QStringLiteral("%1%").arg(progress);
         break;
     }
 
@@ -81,7 +85,7 @@ void Downloader::onDownload(int evt, QUrl url, int progress, QNetworkReply::Netw
 void Downloader::download(const QString& surl)
 {
     QUrl url(surl);
-    QString save_file = save_dir_ + "/" + app::url2Filename(surl);
+    QString save_file = save_dir_ + "/" + kutil::url2Filename(surl);
     if (QDir().exists(save_file)){
         // 如果此文件已经存在，则不要下载了，直接通知下载完成了
         onDownload(net::HttpDownload_Event_Finished, url, 100, QNetworkReply::NoError);

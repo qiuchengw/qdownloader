@@ -81,12 +81,12 @@
   <customwidget>
    <class>KCountdownButton</class>
    <extends>QPushButton</extends>
-   <header>../widget/kcountdownbutton.h</header>
+   <header>kwidget/kcountdownbutton.h</header>
   </customwidget>
   <customwidget>
    <class>QPathEdit</class>
    <extends>QWidget</extends>
-   <header>../widget/qpathedit.h</header>
+   <header>kwidget/qpathedit.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
